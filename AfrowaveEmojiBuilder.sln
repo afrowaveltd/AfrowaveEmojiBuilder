@@ -3,11 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36025.13
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedEmojiTools", "..\ClassLibraries\SharedEmojiTools\SharedEmojiTools.csproj", "{61BCE191-F6C9-4756-A699-2D5FD033C116}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedEmojiTools.Tests", "..\ClassLibraries\SharedEmojiTools.Tests\SharedEmojiTools.Tests.csproj", "{28D2B7DC-1E87-40C4-A1F9-443DDA1BD032}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmojiBuilder", "EmojiBuilder\EmojiBuilder.csproj", "{EE5F1063-D9D9-47DC-BE23-EDF93C8ABD85}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C612E1A5-23E5-4B1F-BC0E-8204750F7280} = {C612E1A5-23E5-4B1F-BC0E-8204750F7280}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedEmojiTools", "SharedEmojiTools\SharedEmojiTools.csproj", "{C612E1A5-23E5-4B1F-BC0E-8204750F7280}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedEmojiTools.Tests", "SharedEmojiTools.Tests\SharedEmojiTools.Tests.csproj", "{C05C6C02-FD0C-4331-B1D4-4C91E012FB71}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C612E1A5-23E5-4B1F-BC0E-8204750F7280} = {C612E1A5-23E5-4B1F-BC0E-8204750F7280}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +21,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{61BCE191-F6C9-4756-A699-2D5FD033C116}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{61BCE191-F6C9-4756-A699-2D5FD033C116}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{61BCE191-F6C9-4756-A699-2D5FD033C116}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{61BCE191-F6C9-4756-A699-2D5FD033C116}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28D2B7DC-1E87-40C4-A1F9-443DDA1BD032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28D2B7DC-1E87-40C4-A1F9-443DDA1BD032}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28D2B7DC-1E87-40C4-A1F9-443DDA1BD032}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28D2B7DC-1E87-40C4-A1F9-443DDA1BD032}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EE5F1063-D9D9-47DC-BE23-EDF93C8ABD85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EE5F1063-D9D9-47DC-BE23-EDF93C8ABD85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE5F1063-D9D9-47DC-BE23-EDF93C8ABD85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE5F1063-D9D9-47DC-BE23-EDF93C8ABD85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C612E1A5-23E5-4B1F-BC0E-8204750F7280}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C612E1A5-23E5-4B1F-BC0E-8204750F7280}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C612E1A5-23E5-4B1F-BC0E-8204750F7280}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C612E1A5-23E5-4B1F-BC0E-8204750F7280}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C05C6C02-FD0C-4331-B1D4-4C91E012FB71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C05C6C02-FD0C-4331-B1D4-4C91E012FB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C05C6C02-FD0C-4331-B1D4-4C91E012FB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C05C6C02-FD0C-4331-B1D4-4C91E012FB71}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

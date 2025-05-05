@@ -1,26 +1,53 @@
-var builder = WebApplication.CreateBuilder(args);
+using EmojiBuilder.Data;
+using Microsoft.EntityFrameworkCore;
+using SharedEmojiTools.Data; // pro EmojiSeedData
 
-// Add services to the container.
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+// 🔌 Registrace EF Core s SQLite
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+	 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 builder.Services.AddRazorPages();
 
-var app = builder.Build();
+WebApplication app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// ✅ Migrace a seed dat při startu
+using(IServiceScope scope = app.Services.CreateScope())
+{
+	ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+	context.Database.Migrate();
+
+	if(!context.Categories.Any())
+	{
+		context.Categories.AddRange(EmojiSeedData.GetDefaultCategories());
+	}
+
+	if(!context.Subcategories.Any())
+	{
+		context.Subcategories.AddRange(EmojiSeedData.GetDefaultSubcategories());
+	}
+
+	if(!context.SkinToneModifiers.Any())
+	{
+		context.SkinToneModifiers.AddRange(EmojiSeedData.GetDefaultSkinTones());
+	}
+
+	_ = context.SaveChanges();
+}
+
+// 🌐 Middleware
 if(!app.Environment.IsDevelopment())
 {
-	app.UseExceptionHandler("/Error");
-	// The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-	app.UseHsts();
+	_ = app.UseExceptionHandler("/Error");
+	_ = app.UseHsts();
 }
 
 app.UseHttpsRedirection();
-
 app.UseRouting();
-
 app.UseAuthorization();
 
 app.MapStaticAssets();
-app.MapRazorPages()
-	.WithStaticAssets();
+app.MapRazorPages().WithStaticAssets();
 
 app.Run();
