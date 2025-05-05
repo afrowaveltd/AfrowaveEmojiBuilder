@@ -1,0 +1,30 @@
+﻿@page
+@model EmojiBuilder.Pages.CategoriesModel
+@{
+    ViewData["Title"] = "Categories";
+}
+
+<h2>📂 Categories</h2>
+
+<form method="post">
+    <input type="text" asp-for="NewCategoryName" placeholder="New category name" required />
+    <button type="submit">Add</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var category in Model.Categories)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

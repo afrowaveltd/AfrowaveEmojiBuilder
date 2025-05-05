@@ -7,7 +7,7 @@ body {
 
 header {
 	background-color: #222;
-	padding: 1rem;
+	padding: 0.5rem;
 }
 
 nav.nav {
@@ -27,7 +27,7 @@ nav.nav {
 
 .container {
 	max-width: 1200px;
-	margin: 2rem auto;
+	margin: 1rem auto;
 	padding: 0 1rem;
 }
 

@@ -1,0 +1,27 @@
+﻿@page
+@model EmojiBuilder.Pages.SubcategoriesModel
+@{
+    ViewData["Title"] = "Subcategories";
+}
+
+<h2>📑 Subcategories</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var sub in Model.Subcategories)
+        {
+            <tr>
+                <td>@sub.Id</td>
+                <td>@sub.Name</td>
+                <td>@sub.Category?.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>
