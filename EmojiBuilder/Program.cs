@@ -1,4 +1,5 @@
 using EmojiBuilder.Data;
+using EmojiBuilder.Hubs;
 using Microsoft.EntityFrameworkCore;
 using SharedEmojiTools.Data; // pro EmojiSeedData
 
@@ -7,6 +8,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 // 🔌 Registrace EF Core s SQLite
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 	 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddSignalR();
 
 builder.Services.AddRazorPages();
 
@@ -46,7 +48,7 @@ if(!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 app.UseAuthorization();
-
+app.MapHub<EmojiHub>("/emojihub");
 app.MapStaticAssets();
 app.MapRazorPages().WithStaticAssets();
 
