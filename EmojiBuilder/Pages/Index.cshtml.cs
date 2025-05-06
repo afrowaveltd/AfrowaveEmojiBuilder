@@ -1,20 +1,27 @@
-using Microsoft.AspNetCore.Mvc;
+using EmojiBuilder.Data;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using SharedEmojiTools.Models.DatabaseModels;
 
-namespace EmojiBuilder.Pages
+namespace EmojiBuilder.Pages;
+
+public class IndexModel : PageModel
 {
-	public class IndexModel : PageModel
+	private readonly ApplicationDbContext _context;
+
+	public IndexModel(ApplicationDbContext context)
 	{
-		private readonly ILogger<IndexModel> _logger;
+		_context = context;
+	}
 
-		public IndexModel(ILogger<IndexModel> logger)
-		{
-			_logger = logger;
-		}
+	public List<EmojiEntity> Emojis { get; set; } = new();
 
-		public void OnGet()
-		{
-
-		}
+	public async Task OnGetAsync()
+	{
+		Emojis = await _context.Emojis
+			 .Include(e => e.EmojiCategories).ThenInclude(ec => ec.Category)
+			 .Include(e => e.EmojiSubcategories).ThenInclude(es => es.Subcategory)
+			 .OrderBy(e => e.Id) // později možno upravit dle potřeby
+			 .ToListAsync();
 	}
 }

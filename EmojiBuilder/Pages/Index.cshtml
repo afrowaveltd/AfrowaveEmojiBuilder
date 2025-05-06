@@ -1,10 +1,35 @@
 ﻿@page
-@model IndexModel
+@model EmojiBuilder.Pages.IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Emoji Overview";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>🧱 Emoji Overview</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Emoji</th>
+            <th>Name</th>
+            <th>Categories</th>
+            <th>Subcategories</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var emoji in Model.Emojis)
+        {
+            <tr>
+                <td>@emoji.Id</td>
+                <td>@emoji.Utf</td>
+                <td>@emoji.Name</td>
+                <td>
+                    @string.Join(", ", emoji.EmojiCategories.Select(c => c.Category.Name))
+                </td>
+                <td>
+                    @string.Join(", ", emoji.EmojiSubcategories.Select(s => s.Subcategory.Name))
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
