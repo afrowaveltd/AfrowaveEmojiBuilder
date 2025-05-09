@@ -1,5 +1,6 @@
 using EmojiBuilder.Data;
 using EmojiBuilder.Hubs;
+using EmojiBuilder.Services;
 using Microsoft.EntityFrameworkCore;
 using SharedEmojiTools.Data; // pro EmojiSeedData
 
@@ -11,6 +12,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddSignalR();
 
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IEmojiJsonReaderService, EmojiJsonReaderService>();
+builder.Services.AddScoped<IEmojiComparisonService, EmojiComparisonService>();
 
 WebApplication app = builder.Build();
 

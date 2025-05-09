@@ -9,26 +9,24 @@
 <table>
     <thead>
         <tr>
-            <th>ID</th>
-            <th>Emoji</th>
+            <th>Default</th>
+            <th>Dark Tone</th>
             <th>Name</th>
-            <th>Categories</th>
-            <th>Subcategories</th>
+            <th>Exists in DB</th>
+            <th>Supports Skin Tone</th>
         </tr>
     </thead>
     <tbody>
-        @foreach(var emoji in Model.Emojis)
+        @foreach(var emoji in Model.EmojiList)
         {
-            <tr>
-                <td>@emoji.Id</td>
-                <td>@emoji.Utf</td>
-                <td>@emoji.Name</td>
-                <td>
-                    @string.Join(", ", emoji.EmojiCategories.Select(c => c.Category.Name))
-                </td>
-                <td>
-                    @string.Join(", ", emoji.EmojiSubcategories.Select(s => s.Subcategory.Name))
-                </td>
+            var defaultChar = emoji.Source.Utf8String;
+            var darkChar = emoji.Source.Utf8String + "🏿";
+            <tr class="@(emoji.ExistsInDb ? "modified" : "unmodified")">
+                <td>@defaultChar</td>
+                <td>@darkChar</td>
+                <td>@emoji.Source.Name</td>
+                <td>@(emoji.ExistsInDb ? "✔" : "✘")</td>
+                <td>@(emoji.SupportsSkinTone ? "✔" : "✘")</td>
             </tr>
         }
     </tbody>
