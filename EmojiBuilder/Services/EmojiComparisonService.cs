@@ -19,7 +19,7 @@ public class EmojiComparisonService(ApplicationDbContext db, IEmojiJsonReaderSer
 
 		foreach(EmojiJsonModel source in sourceList)
 		{
-			EmojiEntity? match = storedList.FirstOrDefault(e => e.Utf == source.UnicodeHex);
+			EmojiEntity? match = storedList.FirstOrDefault(e => e.Utf == source.Utf8String);
 
 			result.Add(new EmojiComparisonModel
 			{

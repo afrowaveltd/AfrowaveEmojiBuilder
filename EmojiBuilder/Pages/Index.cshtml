@@ -4,61 +4,6 @@
     ViewData["Title"] = "Emoji Overview";
 }
 
-@section Scripts {
-    <script src="/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
-    <script>
-        let connection;
-
-        async function startSignalR() {
-            connection = new signalR.HubConnectionBuilder()
-                .withUrl("/emojihub")
-                .build();
-
-            connection.on("EmojiUpdated", (utf) => {
-                console.log("Updated:", utf);
-                const row = document.querySelector(`tr[data-utf='${utf}']`);
-                if (row) {
-                    row.classList.add("modified");
-                    row.classList.remove("unmodified");
-                    row.style.transition = "background-color 0.5s";
-                    row.style.backgroundColor = "#d4ffd4"; // zelené zvýraznění
-                    setTimeout(() => row.style.backgroundColor = "", 1500);
-                }
-            });
-
-            await connection.start();
-            console.log("SignalR connected");
-        }
-
-        async function saveChanges(index) {
-            const categories = Array.from(document.getElementById("cat-" + index).selectedOptions).map(o => parseInt(o.value));
-            const subcategories = Array.from(document.getElementById("sub-" + index).selectedOptions).map(o => parseInt(o.value));
-            const skinTone = document.getElementById("tone-" + index).checked;
-
-            const emojiUtf = document.querySelectorAll(".toggle-row")[index].closest("tr").children[1].innerText;
-
-            await connection.invoke("SaveEmojiEdit", {
-                utf: emojiUtf,
-                categories,
-                subcategories,
-                supportsSkinTone: skinTone
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            startSignalR();
-            document.querySelectorAll('.toggle-row').forEach(button => {
-                button.addEventListener('click', () => {
-                    const target = button.closest('tr').nextElementSibling;
-                    if (target && target.classList.contains('details-row')) {
-                        target.style.display = target.style.display === 'table-row' ? 'none' : 'table-row';
-                        button.textContent = target.style.display === 'table-row' ? '▼' : '▶';
-                    }
-                });
-            });
-        });
-    </script>
-}
 
 <h2>🧱 Emoji Overview</h2>
 

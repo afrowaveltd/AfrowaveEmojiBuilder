@@ -55,6 +55,6 @@ public class EmojiHub(ApplicationDbContext dbContext) : Hub
 		}
 
 		await dbContext.SaveChangesAsync();
-		await Clients.All.SendAsync("EmojiUpdated", data.Utf);
+		await Clients.All.SendAsync("EmojiUpdated", data);
 	}
 }
