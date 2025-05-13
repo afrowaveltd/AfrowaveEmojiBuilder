@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SharedEmojiTools.Data;
 using SharedEmojiTools.Models.DatabaseModels;
+using SharedEmojiTools.Services;
 
 namespace EmojiBuilder.Data
 {
-	public class ApplicationDbContext : DbContext
+	public class ApplicationDbContext : DbContext, IEmojiDbContext
 	{
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
 		{
@@ -20,31 +22,7 @@ namespace EmojiBuilder.Data
 		{
 			base.OnModelCreating(modelBuilder);
 
-			_ = modelBuilder.Entity<EmojiCategoryEntity>()
-				 .HasKey(ec => new { ec.EmojiId, ec.CategoryId });
-
-			_ = modelBuilder.Entity<EmojiCategoryEntity>()
-				 .HasOne(ec => ec.Emoji)
-				 .WithMany(e => e.EmojiCategories)
-				 .HasForeignKey(ec => ec.EmojiId);
-
-			_ = modelBuilder.Entity<EmojiCategoryEntity>()
-				 .HasOne(ec => ec.Category)
-				 .WithMany(c => c.EmojiCategories)
-				 .HasForeignKey(ec => ec.CategoryId);
-
-			_ = modelBuilder.Entity<EmojiSubcategoryEntity>()
-				 .HasKey(es => new { es.EmojiId, es.SubcategoryId });
-
-			_ = modelBuilder.Entity<EmojiSubcategoryEntity>()
-				 .HasOne(es => es.Emoji)
-				 .WithMany(e => e.EmojiSubcategories)
-				 .HasForeignKey(es => es.EmojiId);
-
-			_ = modelBuilder.Entity<EmojiSubcategoryEntity>()
-				 .HasOne(es => es.Subcategory)
-				 .WithMany(s => s.EmojiSubcategories)
-				 .HasForeignKey(es => es.SubcategoryId);
+			modelBuilder.ApplyEmojiMappings();
 		}
 	}
 }
