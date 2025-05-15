@@ -53,6 +53,7 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapHub<EmojiHub>("/emojihub");
 app.MapHub<CategoryHub>("/hubs/category");
+app.MapHub<SubcategoryHub>("/hubs/subcategory");
 app.MapStaticAssets();
 app.MapRazorPages().WithStaticAssets();
 

@@ -27,12 +27,12 @@ namespace EmojiBuilder.Hubs
 		public async Task<CategoryDto?> RenameCategoryAsync(int id, string newName)
 		{
 			bool entity = await _categoryManager.RenameAsync(id, newName);
-			if(entity == null)
+			if(entity == false)
 			{
 				return null;
 			}
 
-			CategoryDto dto = new CategoryDto { Id = entity.Id, Name = entity.Name };
+			CategoryDto dto = new CategoryDto { Id = id, Name = newName };
 			await Clients.All.SendAsync("CategoryRenamed", dto);
 			return dto;
 		}
